@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/Main.css">
+    <link rel="stylesheet" href ="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Home | Netflix</title>
+    <link rel="stylesheet" href ="style.css">
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+    font-family: "Netflix Sans", sans-serif;
+  }
+  ::-webkit-scrollbar{
+    width: 7px;
+    background-color: #111;
+  }
+  ::-webkit-scrollbar-thumb{
+    background-color: white;
+    border-radius: 10px;
+  }
+  :root {
+    --shadow-filter: #666666;
+  }
+  
+  body{
+    background: #111;
+  }
+  /****************Header**************/
+  .header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2.5%;
+    z-index: 99;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.01) 0%, rgb(0, 0, 0, .6) 100%);
+    transition-timing-function: ease-in;
+    transition: all 500ms;
+  }
+  .header.active{
+    background: #111;
+  }
+  .header-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .header-left a{
+    margin-left: 1rem;
+    color: rgb(209, 209, 209);
+    filter: drop-shadow(1px 1px 1px var(--shadow-filter));
+  }
+  .header-color{
+    background: #111;
+  }
+  .header-left:first-child{
+    margin-right: 2rem;
+  }
+  .header-left a:hover,
+  .header-left .active{
+    color: white;
+  }
+  .header-left img{
+    margin-right: 2.4rem;
+    width: 10rem;
+    filter: drop-shadow(1px 1px 1px var(--shadow-filter));
+  }
+  .header-right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .header-right span a{
+    color: white;
+  }
+  .header-right span{
+    cursor: pointer;
+    margin-left: 1.2rem;
+  }
+  .header-right i{
+    color: white;
+  }
+  .header-right span:last-child{
+    margin-left: .3rem;
+  }
+  .avatar{
+    border-radius: 3px;
+    width: 2.4rem;
+    filter: drop-shadow(1px 1px 1px var(--shadow-filter));
+  }
+  .header-right .notify-counter{
+    width: fit-content;
+    padding: .09rem .26rem;
+    border-radius: 50%;
+    background-color: rgb(223, 17, 17);
+    color: white;
+    margin-left: -.4rem;
+    font-size: .7rem;
+    position: absolute;
+    top: 2rem;
+  }
+  #logo2hide{
+    display: none;
+  }
+  /**********Banner**********/
+  #banner{
+    color: white;
+    object-fit: contain;
+    height: 90vh;
+    background-position: center center;
+    background-size: cover;
+  }
+  #banner::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgb(0, 0, 0, .4) 0%, rgb(0, 0, 0, .3) 10%, rgb(0, 0, 0, .3) 90%, rgb(0, 0, 0, .4) 100%);
+    z-index: 1;
+  }
+  #banner-content{
+    margin-left: 70px;
+    padding-top: 340px;
+    height: 11rem;
+    position: relative;
+    z-index: 1;
+  }
+  #banner-title{
+    font-size: 3rem;
+    font-weight: 800;
+    padding-bottom: .3rem;
+  }
+  #banner-description{
+    width: 45rem;
+    line-height: 1.5;
+    padding-top: 1rem;
+    font-size: .9rem;
+    max-width: 20rem;
+    height: 5.2rem;
+  }
+  #banner-buttons{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+  #banner-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+    font-weight: 700;
+    border-radius: .2vw;
+    padding: .85rem 1.7rem;
+    margin: 1rem;
+    background-color: rgba(105, 105, 105, 0.788);
+  }
+  #banner-button:hover{
+    color: black;
+    background-color: #e6e6e6;
+    transition: all 300ms;
+  }
+  
+  #banner-button i{
+    font-size: 1.2rem;
+    margin-right: .7rem;
+  }
+  /*#banner-fadebuttom{
+    height: 90vh;
+    background: linear-gradient(180deg,  rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1), rgba(0, 0, 0, 1));
+  }*/
+  #headrow{
+    position: absolute;
+    top: 75vh;
+    padding-bottom: 5rem;
+    z-index: 4;
+  }
+  .row {
+    color: white;
+  }
+  .row-posters::-webkit-scrollbar{
+    display: none;
+  }
+  .row-title{
+    margin-left: 2.6rem;
+  }
+  .row-posters {
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    padding: .4rem 2rem 2rem 2rem;
+  }
+  .row-PosterLarge{
+    object-fit: contain;
+    width: 100%;
+    max-height: 250px;
+    margin-left: 10px;
+    border-radius: 5px;
+    transition: transform 500ms;
+  }
+  .row-PosterLarge:hover{
+    transform: scale(1.09);
+    opacity: 1;
+  }
+  /***********footer icon************/
+  .footer{
+      display: none;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 4.3rem;
+      position: fixed;
+      bottom: 0;
+      background: #111;
+      z-index: 99;
+  }
+  .bottom-icon{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: rgb(209, 209, 209); 
+      margin: .6rem 2.4rem;
+      font-size: .8rem;
+  }
+  .footer .active{
+      color: white;
+  }
+  .bottom-icon i{
+      font-size: 1.6rem;
+      margin-bottom: .5rem;
+  }
+  @media (max-width:990px) {
+    html{
+      font-size: 90%;
+    }
+  }
+  @media (max-width:550px) {
+    html{
+      font-size: 80%;
+    }
+    .row-PosterLarge{
+      width: 90%;
+      max-height: 180px;
+    }
+    #hide{
+      display: none;
+    }
+    #logo1hide{
+      display: none;
+    }
+    #logo2hide{
+      display: block;
+      margin-right: 1.4rem; 
+      width: 2.4rem;
+    }
+    .header-left a{ 
+        margin-left: 2.5rem;
+    }
+    .footer{
+        display: flex;
+    }
+  }
+    </style>
+    <script>
+        // API key from TMBD
+const api = "api_key=229df96d9cd7e64b815fad2f3de2890d";
+// base URL of the site
+const BaseURL = "https://api.themoviedb.org/3";
+
+const BannerURL = "https://image.tmdb.org/t/p/original";
+const ImgURL = "https://image.tmdb.org/t/p/w300"; //change width here
+
+//requestd for Movies data
+const requests ={
+
+    fetchTrending: `${BaseURL}/trending/all/week?${api}&language=en-US`,
+    fetchNetflixOriginals: `${BaseURL}/discover/tv?${api}&with_networks=213`,
+    fetchFamilyMovies: `${BaseURL}/discover/tv?${api}&with_genres=10751`,
+    fetchComedyMovies: `${BaseURL}/discover/tv?${api}&with_genres=35`,
+    fetchCrimeMovies: `${BaseURL}/discover/tv?${api}&with_genres=80`,
+    fetchRomanceMovies: `${BaseURL}/discover/movie?${api}&with_genres=10749`,
+    fetchDocumentaries: `${BaseURL}/discover/movie?${api}&with_genres=99`,
+    fetchAnimeMovies: `${BaseURL}/discover/movie?${api}&with_genres=14`,
+    fetchDramaMovies: `${BaseURL}/discover/movie?${api}&with_genres=18`,
+    fetchMysteryMovies: `${BaseURL}/discover/movie?${api}&with_genres=9648`,
+
+};
+
+//used to truncate the string
+function truncate(str , n){
+    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+}
+//banner
+fetch(requests.fetchNetflixOriginals)
+  .then((res) => res.json())
+
+  .then((data) => {
+    console.log(data.results);
+    // every refresh will change movie banner
+
+    const setMovie = 
+        data.results[Math.floor(Math.random() * data.results.length - 1)];
+
+        var banner = document.getElementById("banner");
+        var bannerTitle = document.getElementById("banner-title");
+        var bannerDesc = document.getElementById("banner-description");
+
+        /*console.log("bannerTitle element:", bannerTitle);
+        console.log("bannerDesc element:", bannerDesc);
+
+        console.log("setMovie name:", setMovie.name);
+        console.log("setMovie overview:", setMovie.overview);*/
+
+        banner.style.backgroundImage  =
+          "url(" + BannerURL + setMovie.backdrop_path + ")";
+        bannerDesc.innerHTML = truncate(setMovie.overview, 150);
+        bannerTitle.innerHTML = setMovie.name;
+        console.log("setMoviename");
+  });
+
+//****************Movies Row********************/
+//originals
+fetch(requests.fetchNetflixOriginals)
+  .then((res) => res.json())
+
+
+  .then((data) => {
+    const headrow = document.getElementById("headrow");
+    const row = document.createElement("div");
+
+    row.className = "row";
+    row.classList.add("netflixrow");
+
+    headrow.appendChild(row);
+
+    const title = document.createElement("h2");
+
+    title.className = "row-title";
+    title.innerHTML = "Netflix Orginals";
+
+    row.appendChild(title);
+
+    const rowPosters = document.createElement("div");
+    rowPosters.className = "row-posters";
+    row.appendChild(rowPosters);
+
+
+
+    data.results.forEach(movie => {
+      
+      const poster = document.createElement("img");
+      poster.className = "row-PosterLarge";
+
+      var s = movie.name.replace(/\s+/g, "");
+
+      poster.id = s;
+      poster.src = ImgURL + movie.poster_path;
+      rowPosters.appendChild(poster);
+    });
+
+  });
+
+//toprated
+fetch(requests.fetchTrending)
+  .then((res) => res.json())
+
+  .then((data) => {
+    const headrow = document.getElementById("headrow");
+    const row = document.createElement("div");
+
+    row.className = "row";
+    headrow.appendChild(row);
+
+    const title = document.createElement("h2");
+
+    title.className = "row-title";
+    title.innerHTML = "Top Rated";
+    row.appendChild(title);
+
+    const rowPosters = document.createElement("div");
+    rowPosters.className = "row-posters";
+    row.appendChild(rowPosters);
+
+    data.results.forEach((movie) => {
+
+      const poster = document.createElement("img");
+      poster.className = "row-PosterLarge";
+
+      var s2 = movie.id;
+
+      poster.id = s2;
+      poster.src = ImgURL + movie.poster_path;
+      rowPosters.appendChild(poster);
+    });
+  });
+
+
+//family
+fetch(requests.fetchFamilyMovies)
+  .then((res) => res.json())
+
+  .then((data) => {
+    const headrow = document.getElementById("headrow");
+    const row = document.createElement("div");
+
+    row.className = "row";
+    headrow.appendChild(row);
+
+    const title = document.createElement("h2");
+
+    title.className = "row-title";
+    title.innerHTML = "Family Movies";
+    row.appendChild(title);
+
+    const rowPosters = document.createElement("div");
+    rowPosters.className = "row-posters";
+    row.appendChild(rowPosters);
+
+    data.results.forEach((movie) => {
+
+      const poster = document.createElement("img");
+      poster.className = "row-PosterLarge";
+
+      var s2 = movie.id;
+
+      poster.id = s2;
+      poster.src = ImgURL + movie.poster_path;
+      rowPosters.appendChild(poster);
+    });
+  });
+
+
+
+//comedy
+fetch(requests.fetchComedyMovies)
+  .then((res) => res.json())
+
+  .then((data) => {
+    const headrow = document.getElementById("headrow");
+    const row = document.createElement("div");
+
+    row.className = "row";
+    headrow.appendChild(row);
+
+    const title = document.createElement("h2");
+
+    title.className = "row-title";
+    title.innerHTML = "Comedy Movies";
+    row.appendChild(title);
+
+    const rowPosters = document.createElement("div");
+    rowPosters.className = "row-posters";
+    row.appendChild(rowPosters);
+
+    data.results.forEach((movie) => {
+      console.log(movie);
+
+      const poster = document.createElement("img");
+      poster.className = "row-PosterLarge";
+
+      var s2 = movie.id;
+
+      poster.id = s2;
+      poster.src = ImgURL + movie.backdrop_path;
+      rowPosters.appendChild(poster);
+    });
+  });
+
+//documentries
+fetch(requests.fetchDocumentaries)
+  .then((res) => res.json())
+
+  .then((data) => {
+    const headrow = document.getElementById("headrow");
+    const row = document.createElement("div");
+
+    row.className = "row";
+    headrow.appendChild(row);
+
+    const title = document.createElement("h2");
+
+    title.className = "row-title";
+    title.innerHTML = "Documentaries Movies";
+    row.appendChild(title);
+
+    const rowPosters = document.createElement("div");
+    rowPosters.className = "row-posters";
+    row.appendChild(rowPosters);
+
+    data.results.forEach((movie) => {
+      console.log(movie);
+
+      const poster = document.createElement("img");
+      poster.className = "row-PosterLarge";
+
+      var s2 = movie.id;
+
+      poster.id = s2;
+      poster.src = ImgURL + movie.backdrop_path;
+      rowPosters.appendChild(poster);
+    });
+  });
+
+//crime
+fetch(requests.fetchCrimeMovies)
+  .then((res) => res.json())
+
+  .then((data) => {
+    const headrow = document.getElementById("headrow");
+    const row = document.createElement("div");
+
+    row.className = "row";
+    headrow.appendChild(row);
+
+    const title = document.createElement("h2");
+
+    title.className = "row-title";
+    title.innerHTML = "Crime Movies";
+    row.appendChild(title);
+
+    const rowPosters = document.createElement("div");
+    rowPosters.className = "row-posters";
+    row.appendChild(rowPosters);
+
+    data.results.forEach((movie) => {
+      console.log(movie);
+
+      const poster = document.createElement("img");
+      poster.className = "row-PosterLarge";
+
+      var s2 = movie.id;
+
+      poster.id = s2;
+      poster.src = ImgURL + movie.backdrop_path;
+      rowPosters.appendChild(poster);
+    });
+  });
+
+//animation
+fetch(requests.fetchAnimeMovies)
+  .then((res) => res.json())
+
+  .then((data) => {
+    const headrow = document.getElementById("headrow");
+    const row = document.createElement("div");
+
+    row.className = "row";
+    headrow.appendChild(row);
+
+    const title = document.createElement("h2");
+
+    title.className = "row-title";
+    title.innerHTML = "Animation";
+    row.appendChild(title);
+
+    const rowPosters = document.createElement("div");
+    rowPosters.className = "row-posters";
+    row.appendChild(rowPosters);
+
+    data.results.forEach((movie) => {
+      console.log(movie);
+
+      const poster = document.createElement("img");
+      poster.className = "row-PosterLarge";
+
+      var s2 = movie.id;
+
+      poster.id = s2;
+      poster.src = ImgURL + movie.backdrop_path;
+      rowPosters.appendChild(poster);
+    });
+  });
+
+//romance
+fetch(requests.fetchRomanceMovies)
+  .then((res) => res.json())
+
+  .then((data) => {
+    const headrow = document.getElementById("headrow");
+    const row = document.createElement("div");
+
+    row.className = "row";
+    headrow.appendChild(row);
+
+    const title = document.createElement("h2");
+
+    title.className = "row-title";
+    title.innerHTML = "Romance";
+    row.appendChild(title);
+
+    const rowPosters = document.createElement("div");
+    rowPosters.className = "row-posters";
+    row.appendChild(rowPosters);
+
+    data.results.forEach((movie) => {
+      console.log(movie);
+
+      const poster = document.createElement("img");
+      poster.className = "row-PosterLarge";
+
+      var s2 = movie.id;
+
+      poster.id = s2;
+      poster.src = ImgURL + movie.backdrop_path;
+      rowPosters.appendChild(poster);
+    });
+  });
+
+//mystery
+fetch(requests.fetchMysteryMovies)
+  .then((res) => res.json())
+
+  .then((data) => {
+    const headrow = document.getElementById("headrow");
+    const row = document.createElement("div");
+
+    row.className = "row";
+    headrow.appendChild(row);
+
+    const title = document.createElement("h2");
+
+    title.className = "row-title";
+    title.innerHTML = "Mystery";
+    row.appendChild(title);
+
+    const rowPosters = document.createElement("div");
+    rowPosters.className = "row-posters";
+    row.appendChild(rowPosters);
+
+    data.results.forEach((movie) => {
+      console.log(movie);
+
+      const poster = document.createElement("img");
+      poster.className = "row-PosterLarge";
+
+      var s2 = movie.id;
+
+      poster.id = s2;
+      poster.src = ImgURL + movie.backdrop_path;
+      rowPosters.appendChild(poster);
+    });
+  });
+
+
+// drama
+fetch(requests.fetchDramaMovies)
+  .then((res) => res.json())
+
+  .then((data) => {
+    const headrow = document.getElementById("headrow");
+    const row = document.createElement("div");
+
+    row.className = "row";
+    headrow.appendChild(row);
+
+    const title = document.createElement("h2");
+
+    title.className = "row-title";
+    title.innerHTML = "Drama";
+    row.appendChild(title);
+
+    const rowPosters = document.createElement("div");
+    rowPosters.className = "row-posters";
+    row.appendChild(rowPosters);
+
+    data.results.forEach((movie) => {
+      console.log(movie);
+
+      const poster = document.createElement("img");
+      poster.className = "row-PosterLarge";
+
+      var s2 = movie.id;
+
+      poster.id = s2;
+      poster.src = ImgURL + movie.backdrop_path;
+      rowPosters.appendChild(poster);
+    });
+  });
+    </script>
+</head>
+<body>
+
+    <!--------------header---------------->
+    <header class="header">
+        <div class="header-left">
+            <a href="index.html">
+                <img src="logo1hide.png" id="logo1hide" alt="logo">
+                <img src="logo2hide.png" id="logo2hide" alt="logo">
+            </a>
+            <a href="#home" class="active" id="hide">Home</a>
+            <a href="#Shows" >TV shows</a>
+            <a href="#Movies" >Movies</a>
+            <a href="#Popular" id="hide">New & Popular</a>
+            <a href="#Mylist" >My List</a>
+            <a href="#browsebylanguage" id="hide">Browse by Languages</a>
+        </div>
+        <div class="header-right">
+            <span id="hide"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <span id="hide"><a href="#Children" >Children</a></span>
+            <span id="hide"><i class="fa-regular fa-bell"></i><small class="notify-counter">5</small></span>
+            
+            <span id="hide"><img class="avatar" src="data:image/png;base64,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" alt=""></span>
+            <span class="arrow" id="hide"><i class="fa-solid fa-caret-down"></i></span>
+        </div>
+    </header>
+    
+    <!----------------banner-------------->
+    <div id="banner">
+        <div id="banner-content">
+            <h1 id="banner-title"></h1>
+            <div id="banner-buttons">
+                <button class="btn1" id="banner-button"><i class="fa-solid fa-play"></i>Play</button>
+                <button class="btn2" id="banner-button"><i class="fa-solid fa-circle-info"></i>More Info</button>
+            </div>
+            <p id="banner-description"></p>
+        </div>
+        <div id="banner-fadebuttom"></div>
+    </div>
+
+    <!------------Row content------------->
+    <div id="headrow">
+        <div class="row">
+            <h2 class="row-title"></h2>
+            <div class="row-posters"></div>
+        </div>
+    </div>
+    <!-------------footer icon------------>
+    <footer class="footer">
+        <div class="bottom-icon active">
+            <i class="fa-solid fa-house"></i>
+            <p>Home</p>
+        </div> 
+        <div class="bottom-icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <p>Search</p>
+        </div>
+        <div class="bottom-icon">
+            <i class="fa-solid fa-arrow-down"></i>
+            <p>Download</p>
+        </div>
+        <div class="bottom-icon">
+            <i class="fa-solid fa-bars"></i>
+            <p>More</p>
+        </div>
+    </footer>
+
+    <!--------------script---------------->
+    <script>
+        window.addEventListener("scroll", function(){
+
+            var head = document.querySelector(".header");
+            head.classList.toggle("active", window.scrollY > 600);
+        });
+    </script>
+    
+    <script src="script/Main.js"></script>
+
+</body>
+</html>
